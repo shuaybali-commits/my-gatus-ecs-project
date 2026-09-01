@@ -1,27 +1,77 @@
-# Terraform working directory
-.terraform/
+# ========================
+# General
+# ========================
 
-# Terraform state
+*.env
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# ========================
+# Terraform
+# ========================
+
+.terraform/
 *.tfstate
 *.tfstate.*
-
-# Terraform crash logs
 crash.log
-crash.*.log
 
-# Terraform variable files
-*.tfvars
-*.tfvars.json
+# ========================
+# AWS / Keys
+# ========================
 
-# Terraform plan files
-*.tfplan
+.aws/
+*.pem
+*.key
 
-# CLI config files
-.terraformrc
-terraform.rc
+# ========================
+# Kubernetes
+# ========================
 
-# OS/editor files
-.DS_Store
-.vscode/
+.kube/
+kubeconfig*
+
+# ========================
+# Docker
+# ========================
+
+docker-compose.override.yml
+
+# ========================
+# Python
+# ========================
+
+__pycache__/
+*.py[cod]
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.tox/
+coverage/
+
+# ========================
+# Node.js
+# ========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================
+# Build / CI
+# ========================
+
+build/
+dist/
+target/
+
+# ========================
+# IDE (optional)
+# ========================
+
 .idea/
-
