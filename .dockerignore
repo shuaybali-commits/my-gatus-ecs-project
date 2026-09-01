@@ -1,0 +1,11 @@
+__pycache__/
+.venv/
+.git/
+.gitignore
+README.md
+.env
+screenshots/
+docs/
+infra/
+terraform/
+.github/

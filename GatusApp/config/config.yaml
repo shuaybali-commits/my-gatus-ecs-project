@@ -1,0 +1,6 @@
+endpoints:
+  - name: google-connectivity-check
+    url: "https://google.com"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
