@@ -1,11 +1,100 @@
-__pycache__/
-.venv/
-.git/
+# ========================
+# Git
+# ========================
+
+.git
 .gitignore
+
+# ========================
+# Docker
+# ========================
+
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# ========================
+# Python
+# ========================
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.tox/
+venv/
+env/
+
+# ========================
+# Terraform
+# ========================
+
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.auto.tfvars
+
+# ========================
+# Kubernetes
+# ========================
+
+.kube/
+
+# ========================
+# AWS
+# ========================
+
+.aws/
+*.pem
+*.key
+
+# ========================
+# Node.js
+# ========================
+
+node_modules/
+
+# ========================
+# IDE
+# ========================
+
+.vscode/
+.idea/
+
+# ========================
+# OS Files
+# ========================
+
+.DS_Store
+Thumbs.db
+
+# ========================
+# Logs
+# ========================
+
+*.log
+
+# ========================
+# Build Artifacts
+# ========================
+
+build/
+dist/
+target/
+
+# ========================
+# Documentation
+# ========================
+
 README.md
-.env
+LICENSE
 screenshots/
-docs/
-infra/
-terraform/
-.github/
+architecture/
+
+# ========================
+# Environment Files
+# ========================
+
+.env
+.env.*
