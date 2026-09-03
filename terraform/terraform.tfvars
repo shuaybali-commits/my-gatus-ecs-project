@@ -24,4 +24,4 @@ alb_security_group_name = "my-gatus-alb-sg"
 
 ecs_security_group_name = "my-gatus-ecs-sg"
 
-
+repository_name = "my-gatus"

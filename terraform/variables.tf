@@ -42,4 +42,7 @@ variable "ecs_security_group_name" {
   type        = string
 }
 
-
+variable "repository_name" {
+  description = "Name of the ECR repository"
+  type        = string
+}

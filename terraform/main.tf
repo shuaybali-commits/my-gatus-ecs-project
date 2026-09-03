@@ -6,8 +6,7 @@ module "vpc" {
   igw_name                = var.igw_name
   public_route_table_name = var.public_route_table_name
   public_subnets          = var.public_subnets
-
-  common_tags = local.common_tags
+  common_tags             = local.common_tags
 }
 
 module "security" {
@@ -18,3 +17,12 @@ module "security" {
   ecs_security_group_name = var.ecs_security_group_name
   common_tags             = local.common_tags
 }
+
+module "ecr" {
+  source = "./modules/ecr"
+
+  repository_name = var.repository_name
+  common_tags     = local.common_tags
+}
+
+
