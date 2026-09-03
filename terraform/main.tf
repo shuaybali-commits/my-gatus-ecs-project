@@ -25,4 +25,9 @@ module "ecr" {
   common_tags     = local.common_tags
 }
 
+module "iam" {
+  source = "./modules/iam"
 
+  execution_role_name = var.execution_role_name
+  common_tags         = local.common_tags
+}
