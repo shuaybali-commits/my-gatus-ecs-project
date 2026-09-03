@@ -32,4 +32,14 @@ variable "public_route_table_name" {
   type        = string
 }
 
+variable "alb_security_group_name" {
+  description = "Name tag for the ALB security group"
+  type        = string
+}
+
+variable "ecs_security_group_name" {
+  description = "Name tag for the ECS security group"
+  type        = string
+}
+
 

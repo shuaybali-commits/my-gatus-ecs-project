@@ -10,4 +10,11 @@ module "vpc" {
   common_tags = local.common_tags
 }
 
+module "security" {
+  source = "./modules/security"
 
+  vpc_id                  = module.vpc.vpc_id
+  alb_security_group_name = var.alb_security_group_name
+  ecs_security_group_name = var.ecs_security_group_name
+  common_tags             = local.common_tags
+}
