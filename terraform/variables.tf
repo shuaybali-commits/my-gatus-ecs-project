@@ -51,3 +51,39 @@ variable "execution_role_name" {
   description = "Name of the ECS task execution role"
   type        = string
 }
+
+variable "alb_name" {
+  description = "Name of the Application Load Balancer"
+  type        = string
+}
+
+variable "target_group_name" {
+  description = "Name of the ALB target group"
+  type        = string
+}
+
+variable "container_port" {
+  description = "Port the application container listens on"
+  type        = number
+}
+
+variable "health_check_path" {
+  description = "Path used by the ALB target group health check"
+  type        = string
+}
+
+variable "health_check_matcher" {
+  description = "Expected HTTP response code for a healthy target"
+  type        = string
+}
+
+variable "cluster_name" {
+  description = "Name of the ECS cluster"
+  type        = string
+}
+
+variable "task_role_name" {
+  description = "Name of the ECS task role"
+  type        = string
+}
+

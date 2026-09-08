@@ -27,3 +27,18 @@ ecs_security_group_name = "my-gatus-ecs-sg"
 repository_name = "my-gatus"
 
 execution_role_name = "my-gatus-ecs-task-execution-role"
+
+alb_name = "my-gatus-alb"
+
+target_group_name = "my-gatus-target-group"
+
+container_port = 8080
+
+health_check_path = "/health"
+
+health_check_matcher = "200"
+
+cluster_name = "my-gatus-cluster"
+
+task_role_name = "my-gatus-ecs-task-role"
+
