@@ -69,3 +69,12 @@ module "acm" {
   domain_name = var.domain_name
   common_tags = local.common_tags
 }
+
+module "route53" {
+  source = "./modules/route53"
+
+  domain_name = var.domain_name
+
+  alb_dns_name = module.alb.load_balancer_dns_name
+  alb_zone_id  = module.alb.load_balancer_zone_id
+}
