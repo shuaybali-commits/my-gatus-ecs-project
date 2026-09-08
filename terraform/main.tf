@@ -41,6 +41,7 @@ module "alb" {
   vpc_id                = module.vpc.vpc_id
   public_subnet_ids     = module.vpc.public_subnet_ids
   alb_security_group_id = module.security.alb_security_group_id
+  certificate_arn       = module.acm.certificate_arn
   container_port        = var.container_port
   health_check_path     = var.health_check_path
   health_check_matcher  = var.health_check_matcher
@@ -68,5 +69,3 @@ module "acm" {
   domain_name = var.domain_name
   common_tags = local.common_tags
 }
-
-

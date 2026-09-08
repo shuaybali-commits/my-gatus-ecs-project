@@ -42,3 +42,8 @@ variable "health_check_matcher" {
   description = "Expected HTTP response code for a healthy target"
   type        = string
 }
+
+variable "certificate_arn" {
+  description = "ARN of the ACM certificate used by the HTTPS listener"
+  type        = string
+}
