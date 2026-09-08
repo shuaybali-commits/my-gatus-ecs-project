@@ -7,3 +7,9 @@ variable "common_tags" {
   description = "Common tags applied to IAM resources"
   type        = map(string)
 }
+
+variable "task_role_name" {
+  description = "Name of the ECS task role"
+  type        = string
+}
+
