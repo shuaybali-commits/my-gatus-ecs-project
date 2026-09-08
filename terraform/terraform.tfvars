@@ -42,3 +42,5 @@ cluster_name = "my-gatus-cluster"
 
 task_role_name = "my-gatus-ecs-task-role"
 
+domain_name = "tm.shuaybali.com"
+
