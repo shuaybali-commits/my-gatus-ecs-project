@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "main" {
   container_definitions = jsonencode([
     {
       name      = "gatus"
-      image     = "${var.repository_url}:v1"
+      image     = "${var.repository_url}:v2"
       essential = true
 
       portMappings = [
