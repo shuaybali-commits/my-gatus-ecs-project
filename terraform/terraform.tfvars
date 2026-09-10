@@ -44,3 +44,8 @@ task_role_name = "my-gatus-ecs-task-role"
 
 domain_name = "tm.shuaybali.com"
 
+log_group_name = "/ecs/my-gatus"
+
+sns_topic_name = "my-gatus-alerts"
+
+notification_email = "shuaybali007@hotmail.com"

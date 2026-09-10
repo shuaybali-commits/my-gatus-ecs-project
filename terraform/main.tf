@@ -59,6 +59,8 @@ module "ecs" {
   ecs_security_group_id       = module.security.ecs_security_group_id
   target_group_arn            = module.alb.target_group_arn
   container_port              = var.container_port
+  log_group_name              = module.monitoring.log_group_name
+  aws_region                  = var.aws_region
 
   common_tags = local.common_tags
 }
@@ -77,4 +79,15 @@ module "route53" {
 
   alb_dns_name = module.alb.load_balancer_dns_name
   alb_zone_id  = module.alb.load_balancer_zone_id
+}
+
+module "monitoring" {
+  source = "./modules/monitoring"
+
+  log_group_name     = var.log_group_name
+  sns_topic_name     = var.sns_topic_name
+  notification_email = var.notification_email
+  cluster_name       = module.ecs.cluster_name
+  service_name       = module.ecs.service_name
+  common_tags        = local.common_tags
 }

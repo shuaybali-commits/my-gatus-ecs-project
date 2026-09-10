@@ -92,3 +92,19 @@ variable "domain_name" {
   type        = string
 }
 
+variable "log_group_name" {
+  description = "Name of the CloudWatch Log Group"
+  type        = string
+}
+
+variable "sns_topic_name" {
+  description = "Name of the SNS topic"
+  type        = string
+}
+
+variable "notification_email" {
+  description = "Email address that receives CloudWatch alarms"
+  type        = string
+}
+
+
