@@ -18,4 +18,7 @@ variable "common_tags" {
   type        = map(string)
 }
 
-
+variable "container_port" {
+  description = "Port the application container listens on"
+  type        = number
+}

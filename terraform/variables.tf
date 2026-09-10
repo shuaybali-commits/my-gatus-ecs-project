@@ -106,5 +106,3 @@ variable "notification_email" {
   description = "Email address that receives CloudWatch alarms"
   type        = string
 }
-
-

@@ -7,4 +7,3 @@ variable "common_tags" {
   description = "Common tags applied to ACM resources"
   type        = map(string)
 }
-

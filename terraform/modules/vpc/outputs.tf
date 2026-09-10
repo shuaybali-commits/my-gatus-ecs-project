@@ -5,11 +5,11 @@ output "vpc_id" {
 }
 
 output "public_subnet_ids" {
-    description = "IDs of the public subnets"
+  description = "IDs of the public subnets"
 
-    value = [
-        for subnet in aws_subnet.public : subnet.id
-    ]
+  value = [
+    for subnet in aws_subnet.public : subnet.id
+  ]
 }
 
 output "internet_gateway_id" {
@@ -23,5 +23,3 @@ output "vpc_cidr" {
 
   value = aws_vpc.main.cidr_block
 }
-
-

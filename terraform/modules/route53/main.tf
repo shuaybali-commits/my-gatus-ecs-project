@@ -14,4 +14,3 @@ resource "aws_route53_record" "main" {
     evaluate_target_health = true
   }
 }
-

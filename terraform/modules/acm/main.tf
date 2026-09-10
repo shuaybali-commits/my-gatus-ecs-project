@@ -1,9 +1,14 @@
+data "aws_route53_zone" "main" {
+  name         = "shuaybali.com"
+  private_zone = false
+}
+
 resource "aws_acm_certificate" "main" {
   domain_name       = var.domain_name
   validation_method = "DNS"
 
   lifecycle {
-  create_before_destroy = true
+    create_before_destroy = true
   }
 
   tags = merge(
@@ -35,10 +40,5 @@ resource "aws_route53_record" "validation" {
 resource "aws_acm_certificate_validation" "main" {
   certificate_arn = aws_acm_certificate.main.arn
 
-  validation_record_fqdns = [for record in aws_route53_record.validation :record.fqdn]
-}
-
-data "aws_route53_zone" "main" {
-  name         = "shuaybali.com"
-  private_zone = false
+  validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
 }

@@ -29,8 +29,8 @@ resource "aws_sns_topic_subscription" "email" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "ecs_cpu_high" {
-  alarm_name          = "my-gatus-ecs-high-cpu"
-  alarm_description   = "Triggers when ECS CPU exceeds 80%"
+  alarm_name        = "my-gatus-ecs-high-cpu"
+  alarm_description = "Triggers when ECS CPU exceeds 80%"
 
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 2
@@ -93,4 +93,3 @@ resource "aws_cloudwatch_metric_alarm" "ecs_memory_high" {
     }
   )
 }
-

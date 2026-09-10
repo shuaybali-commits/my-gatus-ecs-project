@@ -1,3 +1,4 @@
+#Networking
 module "vpc" {
   source = "./modules/vpc"
 
@@ -9,15 +10,18 @@ module "vpc" {
   common_tags             = local.common_tags
 }
 
+#Security
 module "security" {
   source = "./modules/security"
 
   vpc_id                  = module.vpc.vpc_id
   alb_security_group_name = var.alb_security_group_name
   ecs_security_group_name = var.ecs_security_group_name
+  container_port          = var.container_port
   common_tags             = local.common_tags
 }
 
+#ECR
 module "ecr" {
   source = "./modules/ecr"
 
@@ -25,6 +29,7 @@ module "ecr" {
   common_tags     = local.common_tags
 }
 
+#IAM
 module "iam" {
   source = "./modules/iam"
 
@@ -33,6 +38,15 @@ module "iam" {
   common_tags         = local.common_tags
 }
 
+#ACM
+module "acm" {
+  source = "./modules/acm"
+
+  domain_name = var.domain_name
+  common_tags = local.common_tags
+}
+
+#ALB
 module "alb" {
   source = "./modules/alb"
 
@@ -48,6 +62,7 @@ module "alb" {
   common_tags           = local.common_tags
 }
 
+#ECS
 module "ecs" {
   source = "./modules/ecs"
 
@@ -65,13 +80,7 @@ module "ecs" {
   common_tags = local.common_tags
 }
 
-module "acm" {
-  source = "./modules/acm"
-
-  domain_name = var.domain_name
-  common_tags = local.common_tags
-}
-
+#DNS
 module "route53" {
   source = "./modules/route53"
 
@@ -81,6 +90,7 @@ module "route53" {
   alb_zone_id  = module.alb.load_balancer_zone_id
 }
 
+#Monitoring
 module "monitoring" {
   source = "./modules/monitoring"
 

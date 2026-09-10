@@ -4,25 +4,25 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
 
   tags = merge(
-  var.common_tags,
-  {
-    Name = var.vpc_name
-  }
-)
+    var.common_tags,
+    {
+      Name = var.vpc_name
+    }
+  )
 
-  }
+}
 
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
   tags = merge(
-  var.common_tags,
-  {
-    Name = var.igw_name
-  }
-)
+    var.common_tags,
+    {
+      Name = var.igw_name
+    }
+  )
 
-  }
+}
 
 resource "aws_subnet" "public" {
   for_each = var.public_subnets
@@ -63,5 +63,3 @@ resource "aws_route_table_association" "public" {
   subnet_id      = each.value.id
   route_table_id = aws_route_table.public.id
 }
-
-
