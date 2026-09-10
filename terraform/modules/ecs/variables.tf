@@ -42,3 +42,15 @@ variable "target_group_arn" {
   description = "ARN of the ALB target group"
   type        = string
 }
+
+variable "log_group_name" {
+  description = "CloudWatch Log Group name"
+  type        = string
+}
+
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+}
+
+
