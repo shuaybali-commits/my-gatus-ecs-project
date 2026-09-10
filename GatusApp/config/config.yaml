@@ -1,6 +1,6 @@
 endpoints:
-  - name: google-connectivity-check
-    url: "https://google.com"
+  - name: tm-homepage
+    url: "https://tm.shuaybali.com"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
