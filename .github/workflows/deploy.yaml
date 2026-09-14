@@ -43,7 +43,7 @@ jobs:
           docker build \
             -f GatusApp/Dockerfile \
             -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-            GatusApp
+            .
 
           docker push \
             $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
