@@ -12,6 +12,8 @@ env:
   ECR_REPOSITORY: my-gatus
   ECS_CLUSTER: my-gatus-cluster
   ECS_SERVICE: my-gatus-service
+  ECS_TASK_DEFINITION: my-gatus
+  ECS_CONTAINER_NAME: gatus
 
 jobs:
   deploy:
@@ -47,3 +49,12 @@ jobs:
 
           docker push \
             $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Download ECS task definition
+        run: |
+          aws ecs describe-task-definition \
+            --task-definition $ECS_TASK_DEFINITION \
+            --query taskDefinition \
+            > task-definition.json
+
+            
