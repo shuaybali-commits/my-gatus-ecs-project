@@ -77,3 +77,8 @@ jobs:
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
+
+      - name: Verify deployment health
+        run: |
+          curl --fail --silent --show-error \
+            https://tm.shuaybali.com/health
