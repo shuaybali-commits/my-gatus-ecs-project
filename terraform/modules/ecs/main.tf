@@ -88,6 +88,12 @@ resource "aws_ecs_service" "main" {
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
 
+  lifecycle {
+    ignore_changes = [
+      task_definition
+    ]
+  }
+
   tags = merge(
     var.common_tags,
     {
