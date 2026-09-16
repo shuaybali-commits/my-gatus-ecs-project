@@ -31,9 +31,6 @@ jobs:
           role-to-assume: arn:aws:iam::160885277863:role/GitHubActions-Gatus-OIDC
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Verify OIDC authentication
-        run: aws sts get-caller-identity
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 

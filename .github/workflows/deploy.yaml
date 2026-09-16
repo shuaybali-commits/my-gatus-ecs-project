@@ -35,9 +35,6 @@ jobs:
           role-to-assume: arn:aws:iam::160885277863:role/GitHubActions-Gatus-OIDC
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Verify OIDC authentication
-        run: aws sts get-caller-identity
-
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
