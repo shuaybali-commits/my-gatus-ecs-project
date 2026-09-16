@@ -77,6 +77,8 @@ module "ecs" {
   log_group_name              = module.monitoring.log_group_name
   aws_region                  = var.aws_region
 
+  depends_on = [module.alb]
+
   common_tags = local.common_tags
 }
 
