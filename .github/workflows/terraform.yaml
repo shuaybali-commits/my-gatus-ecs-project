@@ -8,6 +8,13 @@ on:
       - "terraform/**"
       - ".github/workflows/terraform.yaml"
 
+  push:
+    branches:
+      - main
+    paths:
+      - "terraform/**"
+      - ".github/workflows/terraform.yaml"
+
   workflow_dispatch:
 
 permissions:
@@ -51,5 +58,5 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: terraform apply -auto-approve
