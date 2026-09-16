@@ -10,6 +10,10 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   ECR_REPOSITORY: my-gatus
   ECS_CLUSTER: my-gatus-cluster
@@ -28,9 +32,11 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::160885277863:role/GitHubActions-Gatus-OIDC
           aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Verify OIDC authentication
+        run: aws sts get-caller-identity
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -78,4 +84,3 @@ jobs:
         run: |
           curl --fail --silent --show-error \
             https://tm.shuaybali.com/health
-            
