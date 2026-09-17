@@ -17,7 +17,7 @@ Thumbs.db
 .terraform/
 *.tfstate
 *.tfstate.*
-terraform.tfvars
+#terraform.tfvars
 *.auto.tfvars
 crash.log
 
