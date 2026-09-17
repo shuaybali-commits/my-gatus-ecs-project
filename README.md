@@ -117,3 +117,68 @@ Security is enforced across multiple layers:
 ![CloudWatch Memory Alarm](screenshots/cloudwatch-alarms-memory.png)
 
 ![SNS Monitoring Alerts](screenshots/sns-monitoring-alerts.png)
+
+## 🚀 Deployment
+
+### Prerequisites
+
+- AWS account with appropriate IAM permissions
+- Terraform
+- Docker with Buildx support
+- AWS CLI
+- Git
+- A domain managed through Route 53
+
+### Deploy
+
+Clone the repository:
+
+```bash
+git clone https://github.com/shuaybali-commits/my-gatus-ecs-project.git
+cd my-gatus-ecs-project/terraform
+```
+
+Review `terraform.tfvars` and update the region, domain, notification email and other environment-specific values where required. Configure `backend.tf` with your S3 state bucket.
+
+Deploy the infrastructure:
+
+```bash
+terraform init
+terraform plan
+terraform apply
+```
+
+For GitHub Actions, configure an AWS OIDC role for the repository and add the repository variables required by the workflows:
+
+- `AWS_ROLE_ARN` — GitHub Actions OIDC role ARN
+- `AWS_REGION` — deployment region
+
+Once configured, changes to `terraform/` trigger the infrastructure pipeline, while changes to `GatusApp/` trigger the application deployment pipeline.
+
+### Teardown
+
+Infrastructure can be removed locally:
+
+```bash
+terraform destroy
+```
+
+or through the manually triggered **Terraform Destroy** workflow using the case-sensitive `DESTROY` confirmation.
+
+## Challenges & Lessons Learned
+
+Several issues encountered during the project provided practical experience troubleshooting across Docker, AWS, Terraform and CI/CD:
+
+- **ARM64 container deployment:** GitHub-hosted runners build on AMD64 by default, while the ECS task runs on ARM64. An initial deployment failed with an architecture mismatch, resolved by introducing QEMU and Docker Buildx to explicitly build for `linux/arm64`.
+
+- **Terraform and CI/CD ownership:** Application deployments register new ECS task definition revisions independently of Terraform. Terraform initially attempted to restore its original revision, so `ignore_changes` was used for the ECS service task definition to prevent infrastructure deployments from overwriting application releases.
+
+- **Terraform resource dependencies:** ECS service creation initially occurred before the target group was fully associated with the ALB listener. An explicit Terraform dependency was introduced to ensure the load balancer was ready before the ECS service was created.
+
+- **Secure CI/CD authentication:** AWS authentication was migrated to GitHub OIDC, allowing workflows to assume an IAM role using short-lived credentials rather than storing long-lived AWS access keys.
+
+## Project Links
+
+- **Live Application:** [https://tm.shuaybali.com](https://tm.shuaybali.com)
+- **GitHub Repository:** [my-gatus-ecs-project](https://github.com/shuaybali-commits/my-gatus-ecs-project)
+- **Deployment Evidence:** [screenshots/](screenshots/)
