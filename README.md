@@ -61,3 +61,38 @@ Terraform provisions:
 Terraform state is stored remotely in **Amazon S3** with state locking, allowing the same state to be safely used by both local Terraform commands and GitHub Actions.
 
 Infrastructure changes are validated with `terraform fmt`, `terraform validate` and `tflint` before a plan is generated. Changes pushed to `main` are then automatically applied through the Terraform GitHub Actions workflow.
+
+## CI/CD
+
+Three GitHub Actions workflows isolate application deployment, infrastructure management, and controlled teardown. All AWS authentication is securely negotiated via **OpenID Connect (OIDC)**, eliminating the need for long-lived IAM access keys.
+
+### Application Deployment
+
+Triggered automatically by changes to the `GatusApp/` directory or invoked manually:
+
+1. Builds the minimal multi-stage `scratch` Docker image for `linux/arm64` using QEMU and Buildx.
+2. Tags the image with the unique Git commit SHA and pushes it to Amazon ECR.
+3. Registers a new ECS task definition revision and deploys it to the Fargate service.
+4. Monitors deployment events until the ECS service reaches stability.
+5. Performs a live HTTP verification against the production `/health` endpoint to confirm success.
+
+### Terraform Infrastructure
+
+Triggered automatically by changes to the `terraform/` directory or invoked manually:
+
+`fmt ──► init ──► validate ──► TFLint ──► plan ──► apply`
+
+- **Pull Requests:** Execute formatting check, initialization, validation, linting, and generate a `terraform plan`.
+- **Pushes to main:** Execute the full lifecycle pipeline, automatically executing `terraform apply` to roll out changes.
+
+### Terraform Destroy
+
+A strictly isolated, manually triggered workflow provides controlled infrastructure teardown to manage cloud costs. The execution process requires an explicit, case-sensitive `DESTROY` text input confirmation before executing `terraform destroy`.
+
+## Pipeline Evidence
+
+![Application Deployment](screenshots/application-deployment-summary.png)
+
+![Terraform Infrastructure](screenshots/terraform-cicd-pipeline.png)
+
+![Terraform Destroy](screenshots/terraform-destroy-workflow.png)
