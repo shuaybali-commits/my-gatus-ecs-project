@@ -4,7 +4,7 @@ A production-style deployment of [Gatus](https://github.com/TwiN/gatus) on **Ama
 
 The project covers the full deployment lifecycle: containerisation, AWS infrastructure, Infrastructure as Code, CI/CD, HTTPS, monitoring, and secure AWS authentication using OIDC.
 
-**Application:** https://tm.shuaybali.com
+**Application:** <https://tm.shuaybali.com>
 
 ## Overview
 
