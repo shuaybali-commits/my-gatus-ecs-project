@@ -96,3 +96,24 @@ A strictly isolated, manually triggered workflow provides controlled infrastruct
 ![Terraform Infrastructure](screenshots/terraform-cicd-pipeline.png)
 
 ![Terraform Destroy](screenshots/terraform-destroy-workflow.png)
+
+## Monitoring & Security
+
+Application logs are streamed from ECS to **Amazon CloudWatch**, with CPU and memory alarms configured to notify through **Amazon SNS** when utilisation exceeds defined thresholds.
+
+Security is enforced across multiple layers:
+
+- HTTPS traffic is terminated at the ALB using an ACM-managed TLS certificate
+- HTTP requests are automatically redirected to HTTPS
+- ECS tasks run in private application subnets and only accept application traffic from the ALB security group
+- Distinct IAM Task Execution and Task Roles separate ECS deployment permissions from application runtime permissions, following the Principle of Least Privilege
+- The container runs as a non-root user within a minimal `scratch` image
+- GitHub Actions uses OIDC and short-lived AWS credentials instead of stored IAM access keys
+
+## Monitoring Evidence
+
+![CloudWatch CPU Alarm](screenshots/cloudwatch-alarms-CPU.png)
+
+![CloudWatch Memory Alarm](screenshots/cloudwatch-alarms-memory.png)
+
+![SNS Monitoring Alerts](screenshots/sns-monitoring-alerts.png)
