@@ -91,7 +91,7 @@ A strictly isolated, manually triggered workflow provides controlled infrastruct
 
 ## Pipeline Evidence
 
-![Application Deployment](screenshots/application-deployment-summary.png)
+![Application Deployment](screenshots/application-deployment-workflow.png)
 
 ![Terraform Infrastructure](screenshots/terraform-cicd-pipeline.png)
 
