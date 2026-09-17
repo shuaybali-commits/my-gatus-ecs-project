@@ -54,6 +54,12 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v6
+
+      - name: Terraform Lint
+        run: tflint
+
       - name: Terraform Plan
         run: terraform plan
 
