@@ -49,7 +49,7 @@ The AWS infrastructure is provisioned using **Terraform** and organised into reu
 
 Terraform provisions:
 
-- Custom VPC with public and private subnets structured across two Availability Zones
+- Custom VPC with two public subnets distributed across two Availability Zones
 - Application Load Balancer with HTTP → HTTPS redirect
 - ECS Fargate cluster, service and task definition
 - Amazon ECR repository
@@ -105,7 +105,7 @@ Security is enforced across multiple layers:
 
 - HTTPS traffic is terminated at the ALB using an ACM-managed TLS certificate
 - HTTP requests are automatically redirected to HTTPS
-- ECS tasks run in private application subnets and only accept application traffic from the ALB security group
+- ECS tasks run in public subnets, with the ECS security group restricting application traffic to connections originating from the ALB security group
 - Distinct IAM Task Execution and Task Roles separate ECS deployment permissions from application runtime permissions, following the Principle of Least Privilege
 - The container runs as a non-root user within a minimal `scratch` image
 - GitHub Actions uses OIDC and short-lived AWS credentials instead of stored IAM access keys
