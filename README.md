@@ -74,7 +74,7 @@ Triggered automatically by changes to the `GatusApp/` directory or invoked manua
 2. Tags the image with the unique Git commit SHA and pushes it to Amazon ECR.
 3. Registers a new ECS task definition revision and deploys it to the Fargate service.
 4. Monitors deployment events until the ECS service reaches stability.
-5. Performs a live HTTP verification against the production `/health` endpoint to confirm success.
+5. Performs a live HTTPS verification against the production `/health` endpoint to confirm success.
 
 ### Terraform Infrastructure
 
@@ -106,7 +106,7 @@ Security is enforced across multiple layers:
 - HTTPS traffic is terminated at the ALB using an ACM-managed TLS certificate
 - HTTP requests are automatically redirected to HTTPS
 - ECS tasks run in public subnets, with the ECS security group restricting application traffic to connections originating from the ALB security group
-- Distinct IAM Task Execution and Task Roles separate ECS deployment permissions from application runtime permissions, following the Principle of Least Privilege
+- Distinct IAM Task Execution and Task Roles separate ECS platform execution permissions from application runtime permissions, following the Principle of Least Privilege
 - The container runs as a non-root user within a minimal `scratch` image
 - GitHub Actions uses OIDC and short-lived AWS credentials instead of stored IAM access keys
 
@@ -118,7 +118,7 @@ Security is enforced across multiple layers:
 
 ![SNS Monitoring Alerts](screenshots/sns-monitoring-alerts.png)
 
-## 🚀 Deployment
+## Deployment
 
 ### Prerequisites
 
@@ -140,13 +140,29 @@ cd my-gatus-ecs-project/terraform
 
 Review `terraform.tfvars` and update the region, domain, notification email and other environment-specific values where required. Configure `backend.tf` with your S3 state bucket.
 
-Deploy the infrastructure:
+For the first deployment, initialise Terraform and create the ECR repository:
 
 ```bash
 terraform init
+terraform apply -target=module.ecr
+```
+
+From the repository root, build and push the initial ARM64 image required by the ECS task definition:
+
+```bash
+aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 160885277863.dkr.ecr.eu-west-2.amazonaws.com
+docker buildx build --platform linux/arm64 -f GatusApp/Dockerfile -t 160885277863.dkr.ecr.eu-west-2.amazonaws.com/my-gatus:v2 --push .
+```
+
+Then deploy the complete infrastructure:
+
+```bash
+cd terraform
 terraform plan
 terraform apply
 ```
+
+The ECR bootstrap is only required for a fresh deployment. After the initial infrastructure is running, application releases are built, tagged with the commit SHA and deployed automatically through GitHub Actions.
 
 For GitHub Actions, configure an AWS OIDC role for the repository and add the repository variables required by the workflows:
 
