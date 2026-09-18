@@ -112,7 +112,7 @@ Security is enforced across multiple layers:
 
 ## Monitoring Evidence
 
-![CloudWatch CPU Alarm](screenshots/cloudwatch-alarms-CPU.png)
+![CloudWatch CPU Alarm](screenshots/cloudwatch-alarms-cpu.png)
 
 ![CloudWatch Memory Alarm](screenshots/cloudwatch-alarms-memory.png)
 
